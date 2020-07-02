@@ -128,3 +128,45 @@ s
   names(t)   
   t
   
+  u <- list( mannu= 3, shiv=8, aadya = 9)
+u  
+
+
+v <- matrix(1:4, nrow=2,ncol=2)
+dimnames(v) <- list(c("mannu","shiv"),c("charan","Priyanka")) #matrices can have names
+v
+
+
+
+
+# saving data in textual formats- very useful in tracking changes in git, much more linger lasting, data doesnt get lost, editabale, potentially recoverable, 
+
+# dump and dput preserves metadata,example class of a column in dataFrame, thus we dont have to speciafy it all over again when we read it back 
+
+#Adhere to the "unix philosophy" that is read all the data in text formats only
+# downside is that it is not very space efficient
+
+#Now creating a data frame and stroring it in y
+
+y <- data.frame(mannu=1, shiv= "p")
+dput(y)  # I put this is a textual format, Observe the output, it creates a werid looking R code
+
+#Now I can  specify it to be stored in the some file, it will be stored in project location
+
+dput(y, file = "mannu.R")
+#now I can read it back
+
+new.y <- dget("mannu.R") # reading using dget
+new.y
+
+
+#dump can be used for multiple R objects
+
+x <- "floor"
+y <- 2:20
+dump(c(x,y), file = "shiv.R")  #concatenating 2 diff files and dumping it in shiv.R
+
+new.k <- dget("shiv.R")
+new.k
+rm(x,y)
+source("shiv.R")
