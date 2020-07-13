@@ -2,10 +2,10 @@ x <- 2
 
 {if (x >3)
 { y<- 10}
-else
-{
-  y <- 7
-}}
+  else
+  {
+    y <- 7
+  }}
 y
 
 
@@ -32,9 +32,9 @@ for (m in k) { print(m)}      ##EXTREMELY ELEGANT, dont even need seq_along
 q <- matrix(1:48 , 6, 8)
 q
 for( i in seq_len(nrow(q)))
-         {
-                for(j in seq_len(ncol(q))) 
-                {   print(q[i,j])  }
+{
+  for(j in seq_len(ncol(q))) 
+  {   print(q[i,j])  }
 }
 
 # prints out 1,7,13,19 etc as it is printing (1,1) (1,2) (1,3) elements which are 1,7 and 13 respectively
@@ -44,9 +44,9 @@ for( i in seq_len(nrow(q)))
 
 count <- 0
 while (count < 20) 
-  { print(count)
-      count <- count+2
-  }
+{ print(count)
+  count <- count+2
+}
 
 
 #Random Number generator
@@ -54,12 +54,12 @@ while (count < 20)
 z <- 5
 
 while(z>3 && z <10)
-         {   
-              coin <- rbinom(1,1, 0.5)
-              
-              z <- if(coin==1) {z+1} else {z-1}
-              print(z)
-          }
+{   
+  coin <- rbinom(1,1, 0.5)
+  
+  z <- if(coin==1) {z+1} else {z-1}
+  print(z)
+}
 
 
 #Now we are going to run repeat loop which can only be exited by break commandj
@@ -68,7 +68,7 @@ x0 <- 1
 tol <- 1e-8    #this means 10^-8
 
 repeat{ x1 <- computeEstimate ()  #not a real funciton, used in optimisation algos to see if a fun converges
-           if (abs(x1-x0) <tol) { break } else {  x0 <- x1  }
+if (abs(x1-x0) <tol) { break } else {  x0 <- x1  }
 }
 
 
@@ -88,9 +88,9 @@ add2 <- function(x,y) { x+y }  #No need to explicitly return as the last evlauat
 x <- c(1,5,54,64,4,7,12,435,5,3,2,8,9,7,5,342,54,32,87,56,4,12,5,8,56,3,1,0,0,5,3,2,1,2)
 
 ret10 <- function( y ) 
-        {  for(i in seq_along(y))
-                {     if(y[i]>10) (print(y[i]))   }
-        }
+{  for(i in seq_along(y))
+{     if(y[i]>10) (print(y[i]))   }
+}
 ret10(x)
 print(ret10(x))
 
@@ -98,11 +98,11 @@ print(ret10(x))
 q <- matrix(1:48 , 6, 8)
 
 colmean <- function(y) {        
-                       nc <- ncol(y)
-                    means <- numeric(nc) #Initialise means vector with size of column
-                       for( i in 1:nc) { means[i] <- mean(y[,i])  }
-                       (return(means))  #return the means vector     
-                        print(means)
+  nc <- ncol(y)
+  means <- numeric(nc) #Initialise means vector with size of column
+  for( i in 1:nc) { means[i] <- mean(y[,i])  }
+  (return(means))  #return the means vector     
+  print(means)
 }
 
 
@@ -125,7 +125,7 @@ f(2)  #This wont result in error as 2 assigned to a^2, B is asleep, as it is not
 
 g <- function(a,b)   
 {print(a)           
- print(b)}
+  print(b)}
 
 g(45)   #Here it fails as you activate both A,B but assign only A
 
@@ -137,7 +137,7 @@ g(45)   #Here it fails as you activate both A,B but assign only A
 
 myplotTweak <- function(x,y, type="1", ...)
 {
-        plot(x,y,type = type, ...) #you are keeping features of plot but adding x,y and saying type should be 1
+  plot(x,y,type = type, ...) #you are keeping features of plot but adding x,y and saying type should be 1
 }
 
 #so myplot is a my own modified version of plot 
@@ -151,15 +151,15 @@ m <- function(..., sep=" ", collapse= NULL)
   
   #This will like paste some unknown #20-30 or whatever number of strings that come in with the seperator
   
-
-#Lexical Scoping - the functions are like countries and the world- remember this analogy while resolving who takes which variable- within world country takes and within country states take within states district takes within district area takes
+  
+  #Lexical Scoping - the functions are like countries and the world- remember this analogy while resolving who takes which variable- within world country takes and within country states take within states district takes within district area takes
   
   
-make.power <- function(n)
-{
-       pow <- function(x) { x^n }
-     return(pow)
-}    #so make.power takes in n and returns pow
+  make.power <- function(n)
+  {
+    pow <- function(x) { x^n }
+    return(pow)
+  }    #so make.power takes in n and returns pow
 
 make.power(3)
 #in console it returned 
@@ -198,3 +198,44 @@ get("n", environment(kambli)) #grab the value of n in the context of env of kamb
 #so this how it knows n is 3
 
 get("pow", environment(kambli))
+
+
+#dates and times in R they are saved as days and time since 1st Jan 1970 internally
+
+x <- as.Date("1970-01-01") #Year-Month-day format
+
+print(x)  #not a character string but seperate format
+
+unclass(x) #tells you value, that value here is days from 1st Jan 1970
+
+y <- as.Date("1970-01-05")
+unclass(y)  #this will give result as 5 as there were 4 days since 1st Jan 1970
+
+z <- as.Date("1959-01-01")
+unclass(z) #will give say -4018 days
+
+#time is stored as POSixct POSixlt, POS is standard of time in computing extremely large integers under the hood
+
+#posixlt is a list which stores weekdays, month, quarter(q1,q2) and then various other mixed functionality
+
+x <- Sys.time(); x #print the current time
+
+# you can coerce this to posixlist, from where you can extract month, weekday, sec, min, hour data, here let tme show you
+p <- as.POSIXlt(x) #coercing x into posixlt
+names(unclass(p)) #gives the functionality available like weekday is rep by wday
+
+p$wday
+p$yday
+p$year
+p$mday  #day of the month
+p$mon
+p$yday
+p$sec
+
+
+#suppose you want to read the dates which are coming in some other format, use STRPTIME and tell R what format it is coming as
+
+datestring <- c("January 10,2012 10:40", "December 9, 2017 9:10")
+
+x <- strptime(datestring, "%B %d, %Y %H:%M")  #It tells date has month first and then date and then year and then hours and then minutes remember to include commas and : which came with the data
+print(x)
