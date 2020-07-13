@@ -148,6 +148,53 @@ myplotTweak <- function(x,y, type="1", ...)
 
 args(paste)
 m <- function(..., sep=" ", collapse= NULL)
-  #This will like paste some unknown 20-30 or whatever number of strings that come in with the seperator ""
+  
+  #This will like paste some unknown #20-30 or whatever number of strings that come in with the seperator
+  
+
+#Lexical Scoping - the functions are like countries and the world- remember this analogy while resolving who takes which variable- within world country takes and within country states take within states district takes within district area takes
   
   
+make.power <- function(n)
+{
+       pow <- function(x) { x^n }
+     return(pow)
+}    #so make.power takes in n and returns pow
+
+make.power(3)
+#in console it returned 
+# > make.power(3)
+# function(x) { x^n }
+# <environment: 0x00000000143999c8>
+
+pow(2)
+# console shows > pow(2)
+# Error in pow(2) : could not find function "pow" because it is a state, cant access from world, it is hidden inside a function called make.power
+
+
+# so what you do is you assign make.power(with a value) to something 
+
+kambli <- make.power(3)
+
+#now kambli is a function who takes value of pow Function!
+
+kambli(2)  #as kambli is pow function now, it can take 2 and raise it to n which was 3 and which was specified earlier, it is pow 3 and not pow4 or pow5
+
+#so when kambli 2 is called , kambli's atoms are itself make.power(3)
+
+
+#so in turn it becomes make.power(3)pow(2)
+
+ls(environment(kambli)) #list out what is in env of kambli which should be n and an unknown some fun called pow
+
+#console o/p - [1] "n"   "pow"
+
+#now to check what value this n is initialsed to 
+
+get("n", environment(kambli)) #grab the value of n in the context of env of kambli
+
+#console o/p -[1] 3 
+
+#so this how it knows n is 3
+
+get("pow", environment(kambli))
