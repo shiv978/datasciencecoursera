@@ -61,3 +61,46 @@ while(z>3 && z <10)
               print(z)
           }
 
+
+#Now we are going to run repeat loop which can only be exited by break commandj
+
+x0 <- 1
+tol <- 1e-8    #this means 10^-8
+
+repeat{ x1 <- computeEstimate ()  #not a real funciton, used in optimisation algos to see if a fun converges
+           if (abs(x1-x0) <tol) { break } else {  x0 <- x1  }
+}
+
+
+## Next and Return functions
+
+
+for (i in 1:100) { if(i<=20){ next }  else print(i) }   #skips first 20 iterations
+
+
+
+####      First Function in R
+
+add2 <- function(x,y) { x+y }  #No need to explicitly return as the last evlauated                                         expression is always returned. Run & see console for                                  magic
+
+
+#Take a subset of numbers and return greater than 10
+x <- c(1,5,54,64,4,7,12,435,5,3,2,8,9,7,5,342,54,32,87,56,4,12,5,8,56,3,1,0,0,5,3,2,1,2)
+
+ret10 <- function( y ) 
+        {  for(i in seq_along(y))
+                {     if(y[i]>10) (print(y[i]))   }
+        }
+ret10(x)
+print(ret10(x))
+
+#### for returning the means of the columns
+q <- matrix(1:48 , 6, 8)
+
+colmean <- function(y) {        
+                       nc <- ncol(y)
+                    means <- numeric(nc) #Initialise means vector with size of column
+                       for( i in 1:nc) { means[i] <- mean(y[,i])  }
+                       (return(means))  #return the means vector     
+                        print(means)
+                     }
