@@ -103,4 +103,51 @@ colmean <- function(y) {
                        for( i in 1:nc) { means[i] <- mean(y[,i])  }
                        (return(means))  #return the means vector     
                         print(means)
-                     }
+}
+
+
+## Functions- TO remove the missing values in data
+# so suppose you create the data
+
+mydata <- rnorm(100)
+sd(mydata, na.rm = FALSE)    #na.rm sets the missing values in data set to false
+
+sd( x= mydata, na.rm= FALSE)  #this is How you name the arguments explicitly
+
+#For Plotting the Named arguments are really important - as in you have to tweak 1-2 things in a long argument lists of plot function
+
+
+## lazy evalualtion- Arguments will be activated only when needed, else asleep
+
+f <-function(a,b)  {  a^2  }
+f(2)  #This wont result in error as 2 assigned to a^2, B is asleep, as it is not need it is not activated
+
+
+g <- function(a,b)   
+{print(a)           
+ print(b)}
+
+g(45)   #Here it fails as you activate both A,B but assign only A
+
+
+
+#Now suppose if you want to extend the functionality of plot function by creating a plot function but dont want to like spend time copying all the argument list again and then doing it so you use ... operator
+
+
+
+myplotTweak <- function(x,y, type="1", ...)
+{
+        plot(x,y,type = type, ...) #you are keeping features of plot but adding x,y and saying type should be 1
+}
+
+#so myplot is a my own modified version of plot 
+
+
+
+#Now one more use of ... operator
+
+args(paste)
+m <- function(..., sep=" ", collapse= NULL)
+  #This will like paste some unknown 20-30 or whatever number of strings that come in with the seperator ""
+  
+  
